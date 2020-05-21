@@ -25,7 +25,9 @@ directory.make_dir(output_dir)
 
 # Argument Parser
 parser = argparse.ArgumentParser(description="Collector of data from the Ocean Gene Database")
-parser.add_argument('-f', '--filename',  type=str,
+parser.add_argument('-j', '--job', default = "Temp", type=str,
+                    help="Job to associate data collection with")
+parser.add_argument('-f', '--filename', type=str,
                     help="Input filename to iterate sequences with")
 args = parser.parse_args()
 
