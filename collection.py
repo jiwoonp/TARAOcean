@@ -10,7 +10,7 @@ try:
     import argparse
     # Do we really want to use this? 
     sys.path.append(os.path.abspath('shared'))
-    import directory
+    import directory, TARA
 except ImportError:
     print(ImportError)
     sys.exit()
@@ -51,4 +51,8 @@ except IOError:
     print(f"File: {args.filename} is not accessible")
     sys.exit()
 
-
+# Send request
+for sequence in sequences:
+    print(sequence)
+    TARA.OGAsubmit(args.job, sequence)
+    break
