@@ -1,4 +1,4 @@
-def OGAsubmit(requestName, sequence):
+def OGArequest(requestName, sequence):
     import subprocess
     cmd = './shared/OGAsubmit.sh'
     run_cmd = [cmd, requestName, sequence]

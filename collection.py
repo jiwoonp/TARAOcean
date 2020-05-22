@@ -8,6 +8,7 @@ Code to request and download data for use in Ocean 506
 try:
     import os, sys
     import argparse
+    import time
     # Do we really want to use this? 
     sys.path.append(os.path.abspath('shared'))
     import directory, TARA
@@ -54,5 +55,7 @@ except IOError:
 # Send request
 for sequence in sequences:
     print(sequence)
-    TARA.OGAsubmit(args.job, sequence)
+    TARA.OGArequest(f"{args.job}", f"{sequence}")
+    # Sleep as a default to prevent accidentally DDOSing the OGA server.
+    time.sleep(30)
     break
