@@ -1,6 +1,6 @@
 def OGArequest(requestName, sequence):
     import subprocess
-    cmd = './shared/OGAsubmit.sh'
+    cmd = './shared/OGArequest.sh'
     run_cmd = [cmd, requestName, sequence]
     proc = subprocess.run(run_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     print(50*'=')
