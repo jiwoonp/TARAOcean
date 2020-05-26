@@ -21,6 +21,7 @@ This file also creates the input and output directories for the project.
 ===============================================================================
 *search.txt
 Example format of sequences to search for.
+NOTE: sequences need to be in FASTA format to be able to be run.
 NOTE: include "END OF SEQUENCE" at the end of every sequence.
 ===============================================================================
 *shared/directory.py
