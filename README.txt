@@ -9,6 +9,10 @@ Skills used.
 Access
 clone using: git clone https://github.com/delasislas/TARAOcean.git
 
+NOTICE:
+Navigate to the shared folder.
+Type chmod +x OGArequest.sh
+This lets python run the shell script as an executable.
 ===============================================================================
 *collection.py
 Usage: python collection.py -j jobname -f filename
