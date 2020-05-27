@@ -20,9 +20,11 @@ except ImportError:
 main_dir = os.path.abspath('.').split('/')[-1]
 input_dir = f"../{main_dir}_input/"
 output_dir = f"../{main_dir}_output/"
+rawData_dir = f"{input_dir}raw/"
+
 directory.make_dir(input_dir)
 directory.make_dir(output_dir)
-
+directory.make_dir(rawData_dir)
 
 # Argument Parser
 parser = argparse.ArgumentParser(description="Collector of data from the Ocean Gene Database")
@@ -58,4 +60,3 @@ for sequence in sequences:
     TARA.OGArequest(f"{args.job}", f"{sequence}")
     # Sleep as a default to prevent accidentally DDOSing the OGA server.
     time.sleep(30)
-    break
