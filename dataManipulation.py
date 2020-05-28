@@ -3,7 +3,8 @@ try:
     import os, sys
     from zipfile import ZipFile
     import glob
-    # Do we really want to use this? 
+    import pandas as pd
+    # Import local modules
     sys.path.append(os.path.abspath('shared'))
     import directory
 except ImportError:
@@ -31,9 +32,10 @@ for rawRequest_dir in rawData_dirs:
     # Clean up zip files
     zip.close()
     
-
-
-
+    # Parse environmental data
+    env_par = pd.read_csv(f'{rawUnzip_dir}environmental_parameters.csv', sep = '\t')
+    gene_ab = pd.read_csv(f'{rawUnzip_dir}abundance_matrix.csv', sep = '\t', skiprows = [1])
+    
 
 
     # TO DO: 
