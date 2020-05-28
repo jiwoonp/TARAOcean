@@ -58,7 +58,7 @@ echo "Status passed"
 
 # Create a directory "../TARAOcean_output/"${requestName}"_"${uniqid}
 
-dir="../TARAOcean_input/raw/"${requestName}"_"${uniqid}
+dir="../TARAOcean_input/raw/request/"${requestName}"_"${uniqid}
 mkdir $dir
 
 # Download result files
@@ -67,6 +67,12 @@ curl -s -X POST http://tara-oceans.mio.osupytheas.fr/ocean-gene-atlas_dev/api/fe
 -H "Accept: application/json"  \
 -H "Content-Type: application/json"  \
 -d "{\"uniqid\":\"$uniqid\",\"file\":\"alignment result\"}" > $dir/fileresult
+
+#homolog sequences
+curl -s -X POST http://tara-oceans.mio.osupytheas.fr/ocean-gene-atlas_dev/api/fetchResults \
+-H "Accept: application/json"  \
+-H "Content-Type: application/json"  \
+-d "{\"uniqid\":\"$uniqid\",\"file\":\"homolog sequences\"}" > $dir/homologSeq.zip
 
 # Abundances & environmental data
 curl -s -X POST http://tara-oceans.mio.osupytheas.fr/ocean-gene-atlas_dev/api/fetchResults \

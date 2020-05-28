@@ -20,10 +20,12 @@ except ImportError:
 main_dir = os.path.abspath('.').split('/')[-1]
 input_dir = f"../{main_dir}_input/"
 output_dir = f"../{main_dir}_output/"
-rawData_dir = f"{input_dir}raw/"
+raw_dir = f"{input_dir}raw/"
+rawData_dir = f"{raw_dir}request/"
 
 directory.make_dir(input_dir)
 directory.make_dir(output_dir)
+directory.make_dir(raw_dir)
 directory.make_dir(rawData_dir)
 
 # Argument Parser
