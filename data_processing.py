@@ -9,16 +9,16 @@ import numpy as np
 env_par = pd.read_csv('environmental_parameters.csv', sep = '\t')
 gene_ab = pd.read_csv('abundance_matrix.csv', sep = '\t', skiprows = [1])
 
-# env_par.head()   
+# env_par.head()  
 # gene_ab.head()    # make sure dataframe looks okay
 
 #list(env_par.columns)   # check which environmental parameters are available
 
 # calculating N:P ratio and N* (maybe unnecessary depending on what you're looking for)
 env_par['NtoPratio'] = env_par['NO3_NO2 (µmol/l)']/env_par['PO4 (µmol/l)']
-env_par['N*'] = env_par['NO3 (µmol/l)'] - 16*env_par['PO4 (µmol/l)'] + 2.9 
+env_par['N*'] = env_par['NO3 (µmol/l)'] - 16*env_par['PO4 (µmol/l)'] + 2.9
 
-gene_ab.insert(0, 'ID', range(1, gene_ab.shape[0]+1))       # assign ID to each row 
+gene_ab.insert(0, 'ID', range(1, gene_ab.shape[0]+1))       # assign ID to each row
 
 taxonomy = gene_ab['Unnamed: 1'].str.split('; ',expand=True)
 #gene_ab = pd.concat([taxonomy, gene_ab], axis=1)
