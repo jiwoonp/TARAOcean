@@ -23,6 +23,7 @@ output_dir = f"../{main_dir}_output/"
 raw_dir = f"{input_dir}raw/"
 rawData_dir = f"{raw_dir}request/"
 
+print("Making directories")
 directory.make_dir(input_dir)
 directory.make_dir(output_dir)
 directory.make_dir(raw_dir)
@@ -37,6 +38,7 @@ parser.add_argument('-f', '--filename', type=str,
 args = parser.parse_args()
 
 # Check to make sure file exists and parse inputs.
+print("Parsing sequences")
 try:
     f = open(args.filename)
     lines = f.readlines()
@@ -46,6 +48,7 @@ try:
         if "END OF SEQUENCE" in line:
             sequences.append(sequence)
             sequence = ""
+            print("End of sequence")
         else:
             sequence = sequence + line
     f.close()
@@ -55,7 +58,8 @@ except FileNotFoundError:
 except IOError:
     print(f"File: {args.filename} is not accessible")
     sys.exit()
-
+print(f"Count of Sequences: {len(sequences)}")
+print("="*80)
 # Send request
 for sequence in sequences:
     print(sequence)
