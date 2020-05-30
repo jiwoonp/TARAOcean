@@ -1,4 +1,4 @@
-Project to download and analyze data from the Ocean Gene Atlas
+Ocean 506 project to download and analyze data from the Ocean Gene Atlas
 Skills used.
     Shell scripting.
     argparse.
@@ -9,10 +9,18 @@ Skills used.
 Access
 clone using: git clone https://github.com/delasislas/TARAOcean.git
 
+TO USE:
+You may need to update modules like pandas.
+You will need to run: conda install cartopy
+    This is for plotting purposes
+
+
 NOTICE:
 Navigate to the shared folder.
 Type chmod +x OGArequest.sh
 This lets python run the shell script as an executable.
+
+
 ===============================================================================
 *collection.py
 Usage: python collection.py -j jobname -f filename
@@ -25,6 +33,8 @@ This file also creates the input and output directories for the project.
 ===============================================================================
 *dataManipulation.py
 
+Note: this is hardcoded for narG, we could later make this more robust.
+Saves data to TARAOcean_output as dataProc.p and a zipfile with the raw data.
 ===============================================================================
 *search.txt
 Example format of sequences to search for.
@@ -43,3 +53,6 @@ Sends request as a query to OGA.
 Returns with the data from the server and stores in output as jobname_uniqueid.
 Displays an error, that doesn't affect the outcome.
 ===============================================================================
+To do:
+Modify dataManipulation.py to allow for different sequences.
+Figure out ways to make plots to summarize relationships.
