@@ -23,6 +23,9 @@ filename can refered to with an absolute or relative path.
 
 This file also creates the input and output directories for the project.
 ===============================================================================
+*dataManipulation.py
+
+===============================================================================
 *search.txt
 Example format of sequences to search for.
 NOTE: sequences need to be in FASTA format to be able to be run.
