@@ -58,6 +58,7 @@ for rawRequest_dir in rawData_dirs:
     #gene_ab = pd.concat([taxonomy, gene_ab], axis=1)
     #gene_ab = gene_ab.dropna(axis=0, subset=[1])  
     m = taxonomy[1] != 'Bacteria'
+
     gene_ab_euk, gene_ab_prok = taxonomy[m], taxonomy[~m] # needed to split data to prokaryotes and non-prokaryotes due to different taxonomic levels
 
     gene_ab_prok = gene_ab_prok[gene_ab_prok.columns[0:8]]
