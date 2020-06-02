@@ -58,18 +58,18 @@ for rawRequest_dir in rawData_dirs:
     #gene_ab = pd.concat([taxonomy, gene_ab], axis=1)
     #gene_ab = gene_ab.dropna(axis=0, subset=[1])  
     m = taxonomy[1] != 'Bacteria'
-    gene_ab_nonprok, gene_ab_prok = taxonomy[m], taxonomy[~m] # needed to split data to prokaryotes and non-prokaryotes due to different taxonomic levels
+
+    gene_ab_euk, gene_ab_prok = taxonomy[m], taxonomy[~m] # needed to split data to prokaryotes and non-prokaryotes due to different taxonomic levels
 
     gene_ab_prok = gene_ab_prok[gene_ab_prok.columns[0:8]]
     gene_ab_prok.columns = ['Biota', 'Superkingdom', 'Phylum', 'Class', 'Order', 'Family', 'Genera', 'Species']
-    gene_ab_nonprok = gene_ab_nonprok.dropna(axis=0, subset=[0])
-    gene_ab_nonprok = gene_ab_nonprok[gene_ab_nonprok.columns[0:2]]
-    gene_ab_nonprok.columns = ['Biota', 'Superkingdom']
-    gene_ab = pd.concat([gene_ab, pd.concat([gene_ab_prok, gene_ab_nonprok])], axis=1)
+    gene_ab_euk = gene_ab_euk.dropna(axis=0, subset=[0])
+    gene_ab_euk.columns = ['Biota', 'Superkingdom', 'Kingdom', 'Superphylum', 'Phylum', 'Subphylum', 'Class', 'Subclass', 'Infraclass','Cohort', 'Order', 'Suborder', 'Infraorder', 'Superfamily', 'Family', 'Subfamily', 'Tribe', 'Genus']
 
+    gene_ab = pd.concat([gene_ab, pd.concat([gene_ab_prok, gene_ab_euk])], axis=1)
     # calculating sum of abundance for each taxonomic level
-    gene_ab_melt = gene_ab.melt(id_vars = ['ID', 'Biota', 'Superkingdom', 'Phylum', 'Class', 'Order', 'Family', 'Genera', 'Species'])
-    dummy = pd.get_dummies(gene_ab_melt, columns = ['Biota', 'Superkingdom', 'Phylum', 'Class', 'Order', 'Family', 'Genera', 'Species'], dtype = 'int')
+    gene_ab_melt = gene_ab.melt(id_vars = ['ID', 'Biota', 'Superkingdom', 'Phylum', 'Class', 'Order', 'Family', 'Genera', 'Species', 'Kingdom', 'Superphylum', 'Subphylum', 'Subclass', 'Infraclass', 'Cohort', 'Suborder', 'Infraorder', 'Superfamily', 'Subfamily', 'Tribe', 'Genus'])
+    dummy = pd.get_dummies(gene_ab_melt, columns = ['Biota', 'Superkingdom', 'Phylum', 'Class', 'Order', 'Family', 'Genera', 'Species', 'Kingdom', 'Superphylum', 'Subphylum', 'Subclass', 'Infraclass', 'Cohort', 'Suborder', 'Infraorder', 'Superfamily', 'Subfamily', 'Tribe', 'Genus'], dtype = 'int')
     for col in dummy.columns.to_list():
         if col != ['value'] and dummy[col].dtype == 'int':
             dummy[col] = np.where(dummy[col] == 1, dummy['value'], dummy[col])
