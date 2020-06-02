@@ -48,11 +48,13 @@ for rawRequest_dir in rawData_dirs:
     zip.extractall(rawUnzip_dir)
     # Clean up zip files
     zip.close()
-    
+
     # Parse environmental data
     env_par = pd.read_csv(f'{rawUnzip_dir}environmental_parameters.csv', sep = '\t')
     gene_ab = pd.read_csv(f'{rawUnzip_dir}abundance_matrix.csv', sep = '\t', skiprows = [1])
-    gene_ab.insert(0, 'ID', range(1, gene_ab.shape[0]+1)) # assign ID to each row 
+
+    gene_ab.insert(0, 'ID', range(1, gene_ab.shape[0]+1)) # assign ID to each row
+
 
     taxonomy = gene_ab['Unnamed: 1'].str.split('; ',expand=True)
     #gene_ab = pd.concat([taxonomy, gene_ab], axis=1)
@@ -63,6 +65,7 @@ for rawRequest_dir in rawData_dirs:
 
     gene_ab_prok = gene_ab_prok[gene_ab_prok.columns[0:8]]
     gene_ab_prok.columns = ['Biota', 'Superkingdom', 'Phylum', 'Class', 'Order', 'Family', 'Genera', 'Species']
+
     gene_ab_nonprok = gene_ab_nonprok.dropna(axis=0, subset=[0])
     gene_ab_nonprok = gene_ab_nonprok[gene_ab_nonprok.columns[0:2]]
     gene_ab_nonprok.columns = ['Biota', 'Superkingdom']
@@ -71,6 +74,7 @@ for rawRequest_dir in rawData_dirs:
     # calculating sum of abundance for each taxonomic level
     gene_ab_melt = gene_ab.melt(id_vars = ['ID','Biota', 'Superkingdom', 'Phylum', 'Class', 'Order', 'Family', 'Genera', 'Species'])
     dummy = pd.get_dummies(gene_ab_melt, columns = ['Biota', 'Superkingdom', 'Phylum', 'Class', 'Order', 'Family', 'Genera', 'Species'], dtype = 'int')
+
     for col in dummy.columns.to_list():
         if col != ['value'] and dummy[col].dtype == 'int':
             dummy[col] = np.where(dummy[col] == 1, dummy['value'], dummy[col])
@@ -78,7 +82,7 @@ for rawRequest_dir in rawData_dirs:
 
     # merged environmental parameters and gene abundance into one file
     alldata = pd.merge(left=env_par, right=gene_ab_final, how='left', left_on='OGA_ID.1', right_on='rownames')
-    
+
     # Save merged data to pickle
     req = rawRequest_dir.split('/')[-1]+"/"
     directory.make_dir(f'{output_dir}{req}')
